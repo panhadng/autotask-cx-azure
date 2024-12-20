@@ -21,6 +21,7 @@ def hello():
 def get_companies():
     # Define the API endpoint
     url = os.getenv('AT_BASE_URL') + "/Companies/query"
+    print(url)
 
     # Define the query parameters
     params = {
