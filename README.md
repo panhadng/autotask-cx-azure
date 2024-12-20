@@ -46,9 +46,3 @@ This is a Flask-based REST API server that integrates with the Autotask API to m
 
 - `GET /api/companies` - Get all companies
 - `GET /api/companies/<company_id>` - Get specific company
-
-## Development
-
-### Testing
-
-Run the test suite:

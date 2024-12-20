@@ -36,6 +36,12 @@ def get_companies():
         "Content-Type": "application/json"
     }
 
+    print("AT_API_INTEGRATION_CODE:", os.getenv('AT_API_INTEGRATION_CODE'))
+    print("AT_USERNAME:", os.getenv('AT_USERNAME'))
+    print("AT_SECRET:", os.getenv('AT_SECRET'))
+    print("AT_BASE_URL:", os.getenv('AT_BASE_URL'))
+    print("CORS_ORIGIN:", os.getenv('CORS_ORIGIN'))
+
     try:
         # Make the GET request
         response = requests.get(url, headers=headers, params=params)
