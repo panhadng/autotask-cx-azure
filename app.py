@@ -151,5 +151,49 @@ def get_tickets(company_id):
         return jsonify({"error": str(e)}), 500
 
 
+@app.route('/api/company/<int:company_id>/contacts', methods=['GET'])
+def get_contacts(company_id):
+    # Define the API endpoint for contacts query
+    url = os.getenv('AT_BASE_URL') + "/Contacts/query"
+    params = {
+        "search": '{ "filter":[{"op" : "eq", "field" : "CompanyID", "value": ' + str(company_id) + '}]}'
+    }
+
+    # Define the headers
+    headers = {
+        "ApiIntegrationCode": os.getenv('AT_API_INTEGRATION_CODE'),
+        "UserName": os.getenv('AT_USERNAME'),
+        "Secret": os.getenv('AT_SECRET'),
+        "Content-Type": "application/json"
+    }
+
+    try:
+        # Make the GET request
+        response = requests.get(url, headers=headers, params=params)
+        response.raise_for_status()
+
+        fullData = response.json()['items']
+        data = [
+            {
+                'id': item['id'],
+                'firstName': item['firstName'],
+                'lastName': item['lastName'],
+                'emailAddress': item['emailAddress'],
+                "emailAddress2": item['emailAddress2'],
+                "emailAddress3": item['emailAddress3'],
+                'phone': item.get('phone', ''),
+                'mobilePhone': item.get('mobilePhone', ''),
+                'title': item['title'],
+                'isActive': item['isActive']
+            }
+            for item in fullData
+        ]
+        return jsonify(data)
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 500
+
+
+port = os.getenv('PORT', 5000)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=port)
