@@ -26,11 +26,11 @@ This is a Flask-based REST API server that integrates with the Autotask API to m
 
 ## Running the Server
 
-1. Start the Flask server:
+1. Start the server:
    ```bash
-   python app.py
+   gunicorn --config gunicorn.conf.py app:app
    ```
-   The server will start on `http://localhost:5000` by default.
+   The server will start on `http://localhost:8000` by default.
 
 ## API Endpoints
 
